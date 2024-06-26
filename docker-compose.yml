@@ -7,6 +7,10 @@ services:
     container_name: ${DOMAIN}
     ports:
       - ${PORT}:${PORT}
+    environment:
+      - PORT=${PORT}
+    env_file:
+      - .env
     restart: always
     labels:
       - "traefik.enable=true"
