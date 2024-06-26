@@ -1,0 +1,23 @@
+version: "3"
+services:
+  bitreon-cloud-server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${DOMAIN}
+    ports:
+      - ${PORT}:${PORT}
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web-deployer-api.rule=Host(`${DOMAIN}`"
+      - "traefik.http.routers.web-deployer-api.entrypoints=websecure"
+      - "traefik.http.routers.web-deployer-api.tls=true"
+      - "traefik.http.routers.web-deployer-api.tls.certresolver=myresolver"
+      - "traefik.http.services.web-deployer-api.loadbalancer.server.port=${PORT}"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
