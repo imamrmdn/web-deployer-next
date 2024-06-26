@@ -14,7 +14,7 @@ COPY package*.json ./
 
 # Install app dependencies
 RUN npm install
-RUN npx prisma generate
+#RUN npx prisma generate
 
 EXPOSE ${PORT}
 
